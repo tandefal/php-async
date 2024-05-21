@@ -24,7 +24,7 @@ require 'vendor/autoload.php';
 # Применение
 
 - interval указываем в ms
-- setInterval(int $interval, callable $callback): React\EventLoop\TimerInterface;
+- setInterval( callable $callback, int $interval ): React\EventLoop\TimerInterface;
 
 ```php
 $count = 1;
@@ -35,7 +35,7 @@ setInterval(function () use(&$count) {
 ```
 
 - interval указываем в ms
-- setTimeout(int $interval, callable $callback): React\EventLoop\TimerInterface;
+- setTimeout(callable $callback, int $interval): React\EventLoop\TimerInterface;
 
 ```php
 setTimeout(function () {
