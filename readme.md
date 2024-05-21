@@ -12,7 +12,7 @@
 Убедитесь, что у вас установлен Composer
 
 ```bash
-composer require tandefal/php-async ^1.0
+composer require tandefal/php-async
 ```
 
 После установки включите автозагрузчик Composer в свой код:
