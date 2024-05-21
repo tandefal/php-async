@@ -3,6 +3,7 @@
     "description": "",
     "keywords": ["ReactPHP"],
     "type": "library",
+    "license": "MIT",
     "minimum-stability": "stable",
     "require": {
         "php": "^8.1",
