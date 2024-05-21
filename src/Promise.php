@@ -2,40 +2,44 @@
 
 use React\Promise\Deferred;
 
-class Promise {
-    private $deferred;
-
-    public function __construct(Callable $callback) {
-        $this->deferred = new Deferred();
-        $callback($this->resolve(), $this->reject());
-    }
-
-    private function resolve(): Closure
+if (!class_exists('Promise')) {
+    class Promise
     {
-        return function ($value) {
-            $this->deferred->resolve($value);
-        };
-    }
+        private $deferred;
 
-    private function reject(): Closure
-    {
-        return function ($value) {
-            $this->deferred->reject($value);
-        };
-    }
+        public function __construct(callable $callback)
+        {
+            $this->deferred = new Deferred();
+            $callback($this->resolve(), $this->reject());
+        }
 
-    public function then(Callable $callback): \React\Promise\PromiseInterface
-    {
-        return $this->deferred->promise()->then($callback);
-    }
+        private function resolve(): Closure
+        {
+            return function ($value) {
+                $this->deferred->resolve($value);
+            };
+        }
 
-    public function catch(Callable $callback): \React\Promise\PromiseInterface
-    {
-        return $this->deferred->promise()->catch($callback);
-    }
+        private function reject(): Closure
+        {
+            return function ($value) {
+                $this->deferred->reject($value);
+            };
+        }
 
-    public function finally(Callable $callback): \React\Promise\PromiseInterface
-    {
-        return $this->deferred->promise()->finally($callback);
+        public function then(callable $callback): \React\Promise\PromiseInterface
+        {
+            return $this->deferred->promise()->then($callback);
+        }
+
+        public function catch(callable $callback): \React\Promise\PromiseInterface
+        {
+            return $this->deferred->promise()->catch($callback);
+        }
+
+        public function finally(callable $callback): \React\Promise\PromiseInterface
+        {
+            return $this->deferred->promise()->finally($callback);
+        }
     }
 }
