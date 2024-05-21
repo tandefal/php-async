@@ -62,3 +62,5 @@ setInterval(function($timer){
     echo "Hello World\n";
 }, 1000);
 ```
+
+# [Examples](https://github.com/tandefal/php-async/tree/main/example)
