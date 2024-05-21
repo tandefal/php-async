@@ -4,30 +4,32 @@
 use React\EventLoop\Loop;
 use React\EventLoop\TimerInterface;
 
-function getTime(int $ms): float|int
-{
-    if($ms > 0) {
-        return $ms / 1000;
+if (!function_exists('setTimeout')) {
+    function setTimeout(callable $callback, int $timeout): TimerInterface
+    {
+        $timeout = $timeout > 0 ? $timeout / 1000 : 0.1;
+        return Loop::addTimer($timeout, $callback);
     }
-    return 0.1;
 }
 
-function setTimeout(callable $callback, int $timeout): TimerInterface
-{
-    return Loop::addTimer(getTime($timeout), $callback);
+if (!function_exists('clearTimeout')) {
+    function clearTimeout(TimerInterface $timer): void
+    {
+        Loop::cancelTimer($timer);
+    }
 }
 
-function clearTimeout(TimerInterface $timer): void
-{
-    Loop::cancelTimer($timer);
+if (!function_exists('setInterval')) {
+    function setInterval(callable $callback, int $timeout): TimerInterface
+    {
+        $timeout = $timeout > 0 ? $timeout / 1000 : 0.1;
+        return Loop::addPeriodicTimer($timeout, $callback);
+    }
 }
 
-function setInterval(callable $callback, int $timeout): TimerInterface
-{
-    return Loop::addPeriodicTimer(getTime($timeout), $callback);
-}
-
-function clearInterval(TimerInterface $timer): void
-{
-    Loop::cancelTimer($timer);
+if (!function_exists('clearInterval')) {
+    function clearInterval(TimerInterface $timer): void
+    {
+        Loop::cancelTimer($timer);
+    }
 }
